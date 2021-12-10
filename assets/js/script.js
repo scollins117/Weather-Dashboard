@@ -99,7 +99,7 @@ var displayCities = function() {
 
 $("#clear-storage").on("click", (event) => {
     localStorage.clear();
-    renderCities();
+    displayCities();
 });
 
 displayCities();
