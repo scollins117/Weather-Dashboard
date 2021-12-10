@@ -2,7 +2,7 @@ var cityFormEl = document.querySelector("#city-form");
 var cityInputEl = document.querySelector("#city");
 var cityContainer = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
-var apiKey = "1e980f61679048b9b26be0021ab0b9a6"
+var apiKey = "1e980f61679048b9b26be0021ab0b9a6";
 var lastCity = "";
 var cityExists = false;
 
@@ -19,11 +19,11 @@ var formSubmitHandler = function(event) {
     } else {
         alert("Please enter a city name.");
     }
-    document.location.reload();
 };
 
 var getCurrentWeather = function(city) {
-    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=Columbus&appid=e0accffe8e5426bc2cbf183569ed5849";
+    console.log(city);
+    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
 
     fetch(apiUrl).then(function(response) {
         if(response.ok) {
