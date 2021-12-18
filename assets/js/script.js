@@ -1,5 +1,5 @@
 var cityFormEl = document.querySelector("#city-form");
-var cityInputEl = document.querySelector("#city");
+var cityInputEl = document.querySelector("#city-name");
 var cityContainer = document.querySelector("#city-container");
 var citySearchTerm = document.querySelector("#city-search-term");
 var apiKey = "1e980f61679048b9b26be0021ab0b9a6";
@@ -23,7 +23,7 @@ var formSubmitHandler = function(event) {
 
 var getCurrentWeather = function(city) {
     console.log(city);
-    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
+    var apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
 
     fetch(apiUrl).then(function(response) {
         if(response.ok) {
@@ -31,7 +31,7 @@ var getCurrentWeather = function(city) {
             console.log(response);
             response.json().then(function(data) {
                 console.log(data);
-                displayWeather();
+                displayWeather(data);
             })
         } else {
             alert("Error: " + response.statusText);
@@ -42,8 +42,19 @@ var getCurrentWeather = function(city) {
     });
 };
 
-var displayWeather = function (searchTerm) {
+var displayWeather = function (data) {
     console.log("its working")
+    var name = data["name"];
+    var temp = data["main"]["temp"];
+    var speed = data["wind"]["speed"];
+    var humidity = data["main"]["humidity"]
+    var description = data["weather"][0]["description"];
+    console.log(name);
+    console.log(temp);
+    console.log(description);
+    console.log(speed);
+    console.log(humidity);
+    document.querySelector(".city").innerText = "Weather in " + name;
 }
 
 var saveCity = function(newCity) {
