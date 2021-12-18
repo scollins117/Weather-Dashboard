@@ -1,0 +1,25 @@
+.hero {
+    color: white;
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    background-image: linear-gradient(to right, blue, purple);
+    padding: 10px;
+  }
+
+span.severe{
+    padding: 3px;
+    background-color: red;
+    color:white;
+}
+
+span.moderate{
+    padding: 3px;
+    background-color: yellow;
+}
+
+span.favorable{
+    padding: 3px;
+    background-color: green;
+    color:white;
+}
