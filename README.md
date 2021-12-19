@@ -14,3 +14,6 @@ THEN I am again presented with current and future conditions for that city
 
 Used html, css, javascript, moment.js, bootstrap, and openweathermap api to generate a weather dashboard
 Users can search for a city and the current weather along with the 5 day forecast will be displayed
+
+Live application deployed here:
+https://scollins117.github.io/Weather-Dashboard/
