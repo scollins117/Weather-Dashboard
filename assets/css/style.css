@@ -7,19 +7,19 @@
     padding: 10px;
   }
 
-span.severe{
-    padding: 3px;
-    background-color: red;
-    color:white;
-}
+  .weather-container {
+    border: 1px solid black;
+  }
 
-span.moderate{
-    padding: 3px;
-    background-color: yellow;
-}
+  .weather-container {
+      margin: auto;
+      padding: 10px;
+  }
 
-span.favorable{
-    padding: 3px;
-    background-color: green;
-    color:white;
-}
+  .search-btn {
+      padding: 1px;
+  }
+ 
+  .form-input {
+      width: 100%;
+  }

@@ -6,17 +6,17 @@ var apiKey = "1e980f61679048b9b26be0021ab0b9a6";
 var lastCity = "";
 var cityExists = false;
 var cityName = document.querySelector(".city");
+var currentDate = document.querySelector(".date");
 var cityTemp = document.querySelector(".temp");
 var cityHumidity = document.querySelector(".humidity");
 var cityWind = document.querySelector(".wind");
 var cityIcon = document.querySelector(".icon");
 var cityUV = document.querySelector(".uv");
 
-var cityNameOne = document.querySelector(".dayOne");
-var cityTempOne = document.querySelector(".tempOne");
-var cityHumidityOne = document.querySelector(".humidityOne");
-var cityWindOne = document.querySelector(".windOne");
-var cityIconOne = document.querySelector(".iconOne");
+var forecastContainerEl = document.querySelector("#fiveday-container");
+var forecastTitle = document.querySelector("#forecast");
+
+
 
 var formSubmitHandler = function(event) {
     event.preventDefault();
@@ -97,21 +97,41 @@ var getWeatherForecast = function(city) {
 
 var displayWeatherForecast = function (data) {
     console.log(data);
+    var forecast = data.list;
 
-    var nameOne = data["city"]["name"];
-    var tempOne = data["list"][0]["main"]["temp"];
-    var speedOne = data["list"][0]["wind"]["speed"];
-    var humidityOne = data["list"][0]["main"]["humidity"]
-    var descriptionOne = data["list"][0]["weather"][0]["description"];
-    var iconOne = data["list"][0]["weather"][0]["icon"];
+    console.log(forecast.length)
+        for(var i=5; i < forecast.length; i=i+8){
+            var forecastDay = forecast[i];
+        
+            var forecastEl = document.createElement("div");
+            forecastEl.classList = "card bg-secondary text-light m-2";
 
-    console.log(nameOne, tempOne, speedOne, humidityOne, iconOne);
+            var forecastDate = document.createElement("h5")
+            forecastDate.textContent= moment.unix(forecastDay.dt).format("MMM D, YYYY");
+            forecastDate.classList = "card-header text-center"
+            forecastEl.appendChild(forecastDate);
 
-    cityNameOne.innerText = "Weather in " + nameOne;
-    cityIconOne.src = "http://openweathermap.org/img/wn/" +iconOne+ ".png";
-    cityTempOne.innerText = tempOne + "°F";
-    cityHumidityOne.innerText = "Humidity: " + humidityOne + "%";
-    cityWindOne.innerText = "Wind Speed: " + speedOne + "mph";
+            var forecastTemp = document.createElement("span");
+            forecastTemp.classList = "card-body text-center";
+            forecastTemp.textContent = forecastDay.main.temp + " °F";
+
+            var weatherIcon = document.createElement("img")
+            weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}.png`);  
+
+            var forecastHumidity = document.createElement("span");
+            forecastHumidity.classList = "card-body text-center";
+            forecastHumidity.textContent = "Humidity: " + forecastDay.main.humidity + "  %";
+
+            var forecastSpeed = document.createElement("span");
+            forecastSpeed.classList = "card-body text-center";
+            forecastSpeed.textContent = "Wind Speed: " + forecastDay.wind.speed + "mph";
+
+            forecastEl.appendChild(forecastTemp);
+            forecastEl.appendChild(weatherIcon);
+            forecastEl.appendChild(forecastHumidity);
+            forecastEl.appendChild(forecastSpeed);
+            forecastContainerEl.appendChild(forecastEl);
+    }
 
 };
 
@@ -132,6 +152,7 @@ var displayWeather = function (data) {
     var icon = data["weather"][0]["icon"];
     var lattitude = data["coord"]["lat"]
     var longitude = data["coord"]["lon"];
+    var date = "(" + moment(data.dt.value).format("MMM D, YYYY") + ") ";
 
     console.log(name);
     console.log(temp);
@@ -142,6 +163,7 @@ var displayWeather = function (data) {
     console.log(longitude);
 
     cityName.innerText = "Weather in " + name;
+    currentDate.innerText = date;
     cityIcon.src = "http://openweathermap.org/img/wn/" +icon+ ".png";
     cityTemp.innerText = temp + "°F";
     cityHumidity.innerText = "Humidity: " + humidity + "%";
@@ -207,11 +229,5 @@ $("#clear-storage").on("click", (event) => {
     displayCities();
 });
 
-// var handleButtonClick = function() {
-//     displayCities();
-//     formSubmitHandler();
-// }
-
-// displayCities();
 
 cityFormEl.addEventListener("submit", formSubmitHandler);
